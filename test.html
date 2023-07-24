@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Terrace Price Calculator</title>
+</head>
+<body>
+    <h1>Terrace Price Calculator</h1>
+    <form id="terraceForm">
+        <label for="area">Area (m²):</label>
+        <input type="number" id="area" required><br>
+
+        <label for="material">Material per m² (price):</label>
+        <input type="number" id="material" required><br>
+
+        <label for="stairs">Stairs (true/false):</label>
+        <input type="checkbox" id="stairs"><br>
+
+        <label for="height">Height (m):</label>
+        <input type="number" id="height" required><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" required><br>
+
+        <button type="button" id="calculateButton" onclick="calculatePrice()">Calculate Price</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function calculatePrice() {
+            const area = parseFloat(document.getElementById("area").value);
+            const material = parseFloat(document.getElementById("material").value);
+            const stairs = document.getElementById("stairs").checked;
+            const height = parseFloat(document.getElementById("height").value);
+            const location = document.getElementById("location").value;
+
+            // Perform the price calculation directly in JavaScript
+            const material_cost = (area * material) * 1.25;
+            const frame_cost = 250 * area;
+            const hours = 50 + area;
+            const hourly_rate = 531;
+            const hour_price = hourly_rate * hours;
+
+            let stair_cost = 0;
+            if (stairs) {
+                stair_cost = (height * material) * 2;
+            }
+
+            const price = parseInt(material_cost + hour_price + stair_cost + frame_cost);
+
+            // Display the estimated price on the webpage
+            document.getElementById("result").innerText = `Estimated Price: ${price},-`;
+        }
+    </script>
+</body>
+</html>
